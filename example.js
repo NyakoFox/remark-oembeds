@@ -11,7 +11,9 @@ const buffer = fs.readFileSync("example.md");
 
 unified()
   .use(remarkParse)
-  .use(remarkOEmbeds)
+  .use(remarkOEmbeds, {
+    whitelist: ["soundcloud.com", "www.youtube.com", "youtu.be", "youtube.com"],
+  })
   .use(remarkRehype, { allowDangerousHtml: true })
   .use(rehypeRaw)
   .use(rehypeSanitize, {

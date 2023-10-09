@@ -1,12 +1,5 @@
 import { visit } from "unist-util-visit";
 import { is } from "unist-util-is";
-
-let whitelist = [
-  "soundcloud.com",
-  "www.youtube.com",
-  "youtu.be",
-  "youtube.com",
-];
 let cachedProviders = [];
 
 async function getProviders() {
@@ -26,7 +19,9 @@ function matchRule(str, rule) {
   ).test(str);
 }
 
-export default function remarkOEmbeds() {
+export default function remarkOEmbeds(opts) {
+  opts = opts || {};
+  const whitelist = opts.whitelist || [];
   return async (tree) => {
     const providers = await getProviders();
     const paragraphs = [];
