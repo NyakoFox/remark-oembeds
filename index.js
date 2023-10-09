@@ -23,7 +23,7 @@ export default function remarkOEmbeds(opts) {
   opts = opts || {};
   const whitelist = opts.whitelist || [];
   return async (tree) => {
-    const providers = await getProviders();
+    const providers = opts.providers || (await getProviders());
     const paragraphs = [];
     visit(tree, "paragraph", (node) => {
       paragraphs.push(node);
